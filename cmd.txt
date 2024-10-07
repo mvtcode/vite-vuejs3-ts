@@ -1,0 +1,2 @@
+docker build -f Dockerfile-local -t tanmv/fe .
+docker run --name fe --rm -p 8080:80 tanmv/fe:latest
