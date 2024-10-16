@@ -1,8 +1,7 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router';
-import Dashboard from '../views/dashboard/Index.vue';
-import NotFound from '../views/404.vue';
-import Forbidden from '../views/403.vue';
-import Login from '../views/auth/Login.vue';
+// import Dashboard from '../views/dashboard/Index.vue';
+// import NotFound from '../views/404.vue';
+// import Forbidden from '../views/403.vue';
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -18,17 +17,22 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/login',
     name: 'Login',
-    component: Login,
+    component: () => import('@/views/auth/LoginPage.vue'),
+    meta: {
+      requiresAuth: false,
+      title: 'Đăng nhập',
+      permission: '',
+    },
   },
   {
     path: '/403',
     name: 'Forbidden',
-    component: Forbidden,
+    component: () => import('@/views/403.vue'),
   },
   {
     path: '/:pathMatch(.*)*',
     name: 'NotFound',
-    component: NotFound,
+    component: () => import('@/views/404.vue'),
   },
 ];
 
@@ -43,7 +47,7 @@ const hasAccess = () => {
   return true;
 };
 
-router.beforeEach((to, from, next) => {
+router.beforeEach((to, _from, next) => {
   if (to.meta.requiresAuth && !hasAccess()) {
     next({ name: 'Forbidden' });
   } else {

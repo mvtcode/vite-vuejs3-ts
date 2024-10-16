@@ -1,16 +1,7 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
-import {
-  Document,
-  Menu as IconMenu,
-  Setting,
-  User,
-  Files,
-  Guide,
-  Folder,
-  Edit,
-} from '@element-plus/icons-vue';
+import { Document, Menu as IconMenu, Setting, User, Files, Guide, Folder, Edit } from '@element-plus/icons-vue';
 
 interface MenuItem {
   index: string;
@@ -120,12 +111,7 @@ const handleSelect = (index: string) => {
       <!-- <img src="/path-to-your-logo.png" alt="Logo" class="logo" /> -->
     </div>
     <el-scrollbar>
-      <el-menu
-        :default-active="activeIndex"
-        class="el-menu-vertical"
-        :collapse="props.isCollapsed"
-        @select="handleSelect"
-      >
+      <el-menu :default-active="activeIndex" class="el-menu-vertical" :collapse="props.isCollapsed" @select="handleSelect">
         <template v-for="item in menuItems" :key="item.index">
           <el-sub-menu v-if="item.children" :index="item.index">
             <template #title>
@@ -138,11 +124,7 @@ const handleSelect = (index: string) => {
                   <el-icon><component :is="subItem.icon" /></el-icon>
                   <span>{{ subItem.title }}</span>
                 </template>
-                <el-menu-item
-                  v-for="grandChild in subItem.children"
-                  :key="grandChild.index"
-                  :index="grandChild.index"
-                >
+                <el-menu-item v-for="grandChild in subItem.children" :key="grandChild.index" :index="grandChild.index">
                   <el-icon><component :is="grandChild.icon" /></el-icon>
                   <span>{{ grandChild.title }}</span>
                 </el-menu-item>

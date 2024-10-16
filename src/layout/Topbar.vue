@@ -4,24 +4,14 @@
       <div class="left-section">
         <el-button @click="toggleSidebar" :icon="isCollapsed ? Expand : Fold" />
         <el-breadcrumb separator="/">
-          <el-breadcrumb-item
-            v-for="item in breadcrumbs"
-            :key="item.path"
-            :to="{ path: item.path }"
-          >
+          <el-breadcrumb-item v-for="item in breadcrumbs" :key="item.path" :to="{ path: item.path }">
             {{ item.name }}
           </el-breadcrumb-item>
         </el-breadcrumb>
       </div>
       <div class="right-section">
         <div class="mr-4">
-          <el-popover
-            placement="bottom-end"
-            :width="300"
-            trigger="click"
-            title="file download"
-            popper-class="notification-popover"
-          >
+          <el-popover placement="bottom-end" :width="300" trigger="click" title="file download" popper-class="notification-popover">
             <template #reference>
               <el-button size="default" class="!mr-0" :icon="Download" circle />
             </template>
@@ -32,12 +22,7 @@
             </ul>
           </el-popover>
         </div>
-        <el-popover
-          placement="bottom-end"
-          :width="300"
-          trigger="click"
-          popper-class="notification-popover"
-        >
+        <el-popover placement="bottom-end" :width="300" trigger="click" popper-class="notification-popover">
           <template #reference>
             <el-badge :value="200" :max="99" class="notification-badge">
               <el-button size="default" class="!mr-0" :icon="Bell" circle />
@@ -46,10 +31,7 @@
           <el-tabs>
             <el-tab-pane label="Thông báo">
               <ul class="notification-list">
-                <li
-                  v-for="notification in notifications"
-                  :key="notification.id"
-                >
+                <li v-for="notification in notifications" :key="notification.id">
                   {{ notification.content }}
                 </li>
               </ul>
@@ -64,12 +46,7 @@
           </el-tabs>
         </el-popover>
         <div class="ml-8">
-          <el-popover
-            placement="bottom-end"
-            :width="280"
-            trigger="click"
-            popper-class="account-popover"
-          >
+          <el-popover placement="bottom-end" :width="280" trigger="click" popper-class="account-popover">
             <template #reference>
               <div class="account-info">
                 <el-avatar :size="32" :src="userAvatar" :icon="User" />
@@ -91,21 +68,11 @@
                   <el-icon class="mr-2"><User /></el-icon>
                   Xem hồ sơ
                 </el-button> -->
-                <el-button
-                  size="default"
-                  class="w-full"
-                  @click="changePassword"
-                >
+                <el-button size="default" class="w-full" @click="changePassword">
                   <el-icon class="mr-2"><Lock /></el-icon>
                   Đổi mật khẩu
                 </el-button>
-                <el-button
-                  size="default"
-                  plain
-                  class="w-full !ml-0"
-                  type="danger"
-                  @click="logout"
-                >
+                <el-button size="default" plain class="w-full !ml-0" type="danger" @click="logout">
                   <el-icon class="mr-2"><SwitchButton /></el-icon>
                   Đăng xuất
                 </el-button>
@@ -121,28 +88,8 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue';
 import { useRoute } from 'vue-router';
-import {
-  ElButton,
-  ElBreadcrumb,
-  ElBreadcrumbItem,
-  ElAvatar,
-  ElPopover,
-  ElTabs,
-  ElTabPane,
-  ElBadge,
-  ElDivider,
-  ElIcon,
-} from 'element-plus';
-import {
-  Fold,
-  Expand,
-  Bell,
-  User,
-  ArrowDown,
-  Lock,
-  SwitchButton,
-  Download,
-} from '@element-plus/icons-vue';
+import { ElButton, ElBreadcrumb, ElBreadcrumbItem, ElAvatar, ElPopover, ElTabs, ElTabPane, ElBadge, ElDivider, ElIcon } from 'element-plus';
+import { Fold, Expand, Bell, User, ArrowDown, Lock, SwitchButton, Download } from '@element-plus/icons-vue';
 
 const route = useRoute();
 
