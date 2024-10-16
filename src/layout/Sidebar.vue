@@ -8,6 +8,8 @@ import {
   User,
   Files,
   Guide,
+  Folder,
+  Edit,
 } from '@element-plus/icons-vue';
 
 interface MenuItem {
@@ -42,6 +44,36 @@ const menuItems: MenuItem[] = [
     icon: Document,
     children: [
       { index: '/documents/all', title: 'All Documents', icon: Files },
+      {
+        index: '/documents/categories',
+        title: 'Categories',
+        icon: Folder,
+        children: [
+          { index: '/documents/categories/work', title: 'Work', icon: Folder },
+          {
+            index: '/documents/categories/personal',
+            title: 'Personal',
+            icon: Folder,
+          },
+          {
+            index: '/documents/categories/projects',
+            title: 'Projects',
+            icon: Folder,
+            children: [
+              {
+                index: '/documents/categories/projects/active',
+                title: 'Active',
+                icon: Edit,
+              },
+              {
+                index: '/documents/categories/projects/archived',
+                title: 'Archived',
+                icon: Files,
+              },
+            ],
+          },
+        ],
+      },
       { index: '/documents/create', title: 'Create New', icon: Document },
     ],
   },
@@ -83,7 +115,7 @@ const handleSelect = (index: string) => {
 </script>
 
 <template>
-  <el-aside :width="props.isCollapsed ? '64px' : '200px'" class="sidebar">
+  <el-aside :width="props.isCollapsed ? '64px' : '220px'" class="sidebar">
     <div class="logo-container">
       <!-- <img src="/path-to-your-logo.png" alt="Logo" class="logo" /> -->
     </div>
@@ -100,14 +132,26 @@ const handleSelect = (index: string) => {
               <el-icon><component :is="item.icon" /></el-icon>
               <span>{{ item.title }}</span>
             </template>
-            <el-menu-item
-              v-for="child in item.children"
-              :key="child.index"
-              :index="child.index"
-            >
-              <el-icon><component :is="child.icon" /></el-icon>
-              <span>{{ child.title }}</span>
-            </el-menu-item>
+            <template v-for="subItem in item.children" :key="subItem.index">
+              <el-sub-menu v-if="subItem.children" :index="subItem.index">
+                <template #title>
+                  <el-icon><component :is="subItem.icon" /></el-icon>
+                  <span>{{ subItem.title }}</span>
+                </template>
+                <el-menu-item
+                  v-for="grandChild in subItem.children"
+                  :key="grandChild.index"
+                  :index="grandChild.index"
+                >
+                  <el-icon><component :is="grandChild.icon" /></el-icon>
+                  <span>{{ grandChild.title }}</span>
+                </el-menu-item>
+              </el-sub-menu>
+              <el-menu-item v-else :index="subItem.index">
+                <el-icon><component :is="subItem.icon" /></el-icon>
+                <span>{{ subItem.title }}</span>
+              </el-menu-item>
+            </template>
           </el-sub-menu>
           <el-menu-item v-else :index="item.index">
             <el-icon><component :is="item.icon" /></el-icon>
@@ -149,7 +193,7 @@ const handleSelect = (index: string) => {
 }
 
 .el-menu-vertical:not(.el-menu--collapse) {
-  width: 200px;
+  width: 220px;
 }
 
 /* Override Element Plus styles for white background */

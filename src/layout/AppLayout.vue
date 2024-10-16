@@ -36,7 +36,7 @@ const toggleSidebar = () => {
 }
 
 .el-main {
-  padding: 10px;
+  padding: 5px;
   overflow-y: auto;
 }
 
